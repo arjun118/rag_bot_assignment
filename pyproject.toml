@@ -3,9 +3,10 @@ name = "avivo-assignment"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.11"
 dependencies = [
     "aiogram>=3.26.0",
+    "diskcache>=5.6.3",
     "fastapi>=0.135.1",
     "groq>=1.1.1",
     "huggingface-hub>=1.7.2",
@@ -16,6 +17,7 @@ dependencies = [
     "python-dotenv>=1.2.2",
     "qdrant-client>=1.17.1",
     "sentence-transformers>=5.3.0",
+    "spacy>=3.8.11",
     "sqlite-vec>=0.1.7",
     "torch>=2.10.0",
     "transformers>=5.3.0",

@@ -7,7 +7,7 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 from states import ChatState
-from utils import save_history
+from utils import extract_tags_spacy, save_history
 
 router = Router()
 
@@ -82,5 +82,6 @@ async def handle_image_photo(message: Message, state: FSMContext):
     out = blip_model.generate(**inputs, max_length=500)
     caption = blip_processor.decode(out[0], skip_special_tokens=True)
     # update the state
-    await save_history(state, "image", save_path, caption)
-    await message.answer(f"Generated Caption: {caption}")
+    tags = extract_tags_spacy(caption)
+    await save_history(state, "image_caption_generation", save_path, caption, tags=tags)
+    await message.answer(f"Generated Caption: {caption}\nTags: {tags}")

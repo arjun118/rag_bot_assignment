@@ -46,6 +46,10 @@ async def main():
                 command="ask",
                 description="ask a query and get the answer from grounded in the knowledge base",
             ),
+            BotCommand(
+                command="summarize",
+                description="summarize your last n meaningful interactions",
+            ),
         ]
     )
 

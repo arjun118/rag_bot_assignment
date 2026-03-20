@@ -28,10 +28,26 @@ COLLECTION_NAME = "rag_chunks"
 DOWNLOADS_DIR = Path("../downloads")
 FALLBACK_USER_ID = "default_files"
 
+SYSTEM_PROMPT = """you are an helpful ai rag assistant who answers user queries basis the context or knowledge base provided\n
+you must always provide answers that are grounded in the context. if un-sure about the answer from the given context,state the same"""
+
 
 bot_model = SentenceTransformer(EMBEDDING_MODEL_NAME_PATH)
 
 qdrant = QdrantClient(host="localhost", port=6333)
+
+from diskcache import Cache
+
+cache = Cache("../cache")
+
+
+def get_embedding(query, embed_fn):
+    if query in cache:
+        print("embedding cache hit")
+        return cache[query]
+    embedding = embed_fn(query)
+    cache[query] = embedding
+    return embedding
 
 
 def normalize(v):
@@ -49,7 +65,8 @@ def resolve_user(user_id: int):
 
 
 def retrieve(query: str, user_id: str, top_k=5):
-    q = bot_model.encode([query])
+    # q = bot_model.encode([query])
+    q = get_embedding([query], bot_model.encode)
     q = normalize(np.array(q, dtype=np.float32))[0]
 
     results = qdrant.query_points(
@@ -66,7 +83,7 @@ def retrieve(query: str, user_id: str, top_k=5):
 
 
 @router.message(Command("ask"))
-async def ask_handler(message: Message):
+async def ask_handler(message: Message, state: FSMContext):
     query = message.text.partition(" ")[2].strip()
 
     if not query:
@@ -84,8 +101,9 @@ async def ask_handler(message: Message):
         return
 
     contexts = [r.payload["text"] for r in results]
-
-    answer = generate_answer(query, contexts)
+    context_text = "\n\n".join(f"[Source {i + 1}]\n{c}" for i, c in enumerate(contexts))
+    user_prompt = f"""context : f{context_text}\n user query: {query}"""
+    answer = generate_answer(SYSTEM_PROMPT, user_prompt)
 
     sources = []
     seen = set()
@@ -107,5 +125,5 @@ async def ask_handler(message: Message):
 📚 Sources:
 {sources_text}
 """
-
+    await save_history(state, "rag", query, final_response)
     await message.answer(final_response.strip())
