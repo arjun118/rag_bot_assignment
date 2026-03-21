@@ -97,3 +97,6 @@ This command spins up two main services:
 3.  **Image Analysis:** Send an image to the bot. It will store the file, generate a caption using BLIP, and extract keywords via spaCy. use with `/image`
 4.  **Summarization:** Use the command `/summarize 5` to get a summary of the last 10 messages in your conversation.
 5.  **Help** Use the `/help` command to get information regarding the command usage
+
+## Demo Video
+[Demo Video](./avivo_rag_demo.webm)
