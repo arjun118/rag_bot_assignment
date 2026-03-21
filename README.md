@@ -99,4 +99,7 @@ This command spins up two main services:
 5.  **Help** Use the `/help` command to get information regarding the command usage
 
 ## Demo Video
-[Demo Video](./avivo_rag_demo.mp4)
+
+https://github.com/user-attachments/assets/64a053dd-1abd-4ab3-bc23-6cf59b412617
+
+
