@@ -12,3 +12,4 @@ bot/.env
 bot/models
 downloads
 images
+.env

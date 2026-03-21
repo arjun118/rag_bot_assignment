@@ -19,8 +19,11 @@ async def help_handler(message: Message):
         "• A short caption\n"
         "• 3 relevant tags\n\n"
         "*/help*\n"
-        "Show this help message.\n\n"
-        "💡 Tip: Keep your queries clear for better results."
+        "Show this help message.\n\n",
+        "/summarize <n>\n",
+        "Summarize your last n messages\n",
+        "Example:\n`/summarize 3`\n\n,
+        "Tip: Keep your queries clear for better results.",
     )
 
     await message.answer(help_text, parse_mode="Markdown")

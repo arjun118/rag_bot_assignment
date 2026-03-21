@@ -14,7 +14,7 @@ from utils import generate_answer, save_history
 router = Router()
 
 SYSTEM_PROMPT = """YOU are an excellent ai summarizer,give the data of past n interactions, generate the conscise summary of the
-last n interactions given in proper formatting. strictly avoid markdown format and prefer simple formatting
+last n interactions given in proper formatting with proper indentation. strictly avoid markdown format.
 """
 
 

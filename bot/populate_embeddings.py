@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import hashlib
+import os
 from pathlib import Path
 
+import config
 import numpy as np
 from llama_index.core import Document
 from llama_index.core.node_parser import SentenceSplitter
@@ -12,15 +14,15 @@ from sentence_transformers import SentenceTransformer
 
 # ---------------- CONFIG ---------------- #
 
-MODEL_NAME = "./models/qwen3_0_6b_embedding"
+MODEL_NAME = config.EMBEDDING_MODEL_NAME_PATH
 COLLECTION_NAME = "rag_chunks"
 
-DOWNLOADS_DIR = Path("downloads")
+DOWNLOADS_DIR = Path(config.DOWNLOADS_DIR)
 FALLBACK_USER_ID = "default_files"
 
 ALLOWED_EXTENSIONS = {".txt", ".md"}
 
-QDRANT_HOST = "localhost"
+QDRANT_HOST = os.getenv("QDRANT_HOST")
 QDRANT_PORT = 6333
 
 

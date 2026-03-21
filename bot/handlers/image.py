@@ -1,5 +1,6 @@
 import os
 import uuid
+from pathlib import Path
 
 import config
 from aiogram import F, Router
@@ -11,7 +12,7 @@ from utils import extract_tags_spacy, save_history
 
 router = Router()
 
-IMAGES_DIR = "./images"
+IMAGES_DIR = Path(config.IMAGES_DIR)
 os.makedirs(IMAGES_DIR, exist_ok=True)
 
 import torch
