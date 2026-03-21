@@ -99,4 +99,4 @@ This command spins up two main services:
 5.  **Help** Use the `/help` command to get information regarding the command usage
 
 ## Demo Video
-[Demo Video](./avivo_rag_demo.webm)
+[Demo Video](./avivo_rag_demo.mp4)
